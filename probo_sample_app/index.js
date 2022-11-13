@@ -16,7 +16,11 @@ module.exports = (app) => {
       // NOTE: this example doesn't actually integrate with a cloud
       // provider to deploy your app, it just demos the basic API usage.
       app.log.info(context.payload);
-
+      const content = await octokit.rest.repos.getContent({
+            owner,
+            repo,
+            path,
+        });
       // Probot API note: context.repo() => { username: 'hiimbex', repo: 'testing-things' }
       const res = await context.octokit.repos.createDeployment(
         context.repo({
